@@ -1,7 +1,1 @@
 1 Şükrü Berkay 12345 True False A+
-2 BAHADIR KAYA 15896 False False AB+
-3 FFFF FFFFF ffffff False False A+
-4 ERYİĞİT ASLAN 12345 False True A+
-5 DOĞAN AYBİLGE 3456 False True 0+
-6 YAMTAR UZUN rtyrh False True A+
-7 HASAN ARABOĞLU 12345 False True A+
