@@ -52,5 +52,11 @@
     <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\BloodBank.ConsoleApp1\BloodBank.ConsoleApp1.csproj">
+      <Project>{3e55d28b-9d28-4005-abb7-2592a43378c6}</Project>
+      <Name>BloodBank.ConsoleApp1</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
