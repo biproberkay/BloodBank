@@ -1,0 +1,9 @@
+﻿/.vs
+/.vscode
+/packages
+/BloodBank/bin/Debug
+/BloodBank/obj
+/BloodBank/BloodBank
+/BloodBank/BloodBank.csproj.user
+*/bin
+*/obj

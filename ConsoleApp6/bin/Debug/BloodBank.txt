@@ -1,3 +1,0 @@
-1 Şükrü Berkay 12345 True True A+
-2 BAHADIR KAYA 15896 False False AB+
-3 FFFF FFFFF ffffff False False A+

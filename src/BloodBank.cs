@@ -1,16 +1,17 @@
-﻿using System;
+﻿using BloodBankb;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ConsoleApp6
+namespace BloodBank
 {
     public class BloodBank
     {
         List<Donation> donations;
-        Donation AppUser ;
+        public Donation AppUser ;
         public BloodBank()
         {
             donations = new List<Donation>();
@@ -22,15 +23,14 @@ namespace ConsoleApp6
             {
                 ReadDb();
             }
-            AppUser = Login();
         }
         void DonationInsert()
         {
             Donation donation = new Donation();
-            Console.ReadLine();
             Console.WriteLine("\t\t Donorün");
             donation.Id = donations.Count()+1;
             Console.Write("Adı: ");
+            Console.ReadLine();
             donation.DonorFirstName = Console.ReadLine().ToUpper();
             Console.Write("SoyAdı: ");
             donation.DonorLastName = Console.ReadLine().ToUpper();
@@ -103,8 +103,35 @@ namespace ConsoleApp6
                 "\n 8.0 RH(-)");
             Console.ReadLine();
             Console.Write("Bir değer girin:");
+#if true
             string bloodSearch = Console.ReadLine().ToUpper();
             List<Donation> searchResults = donations.ToList().FindAll(b => b.BloodGroup == bloodSearch);
+#else
+            char bloodSearch = (char)Console.Read();
+            switch (bloodSearch)
+            {
+                case '1':
+                    break;
+                case '2':
+                    break;
+                case '3':
+                    break;
+                case '4':
+                    break;
+                case '5':
+                    break;
+                case '6':
+                    break;
+                case '7':
+                    break;
+                case '8':
+                    break;
+                default:
+                    break;
+            }
+            string[] groups = new string[]{ "A+", "B+", "AB+", "0+", "A-", "B-", "AB-", "0-" };
+            List<Donation> searchResults = donations.ToList().FindAll(b => b.BloodGroup == groups);
+#endif
             foreach (var item in searchResults)
             {
                 Console.WriteLine(
@@ -117,7 +144,10 @@ namespace ConsoleApp6
             Console.WriteLine("Bir tuşa basın");
             Console.ReadKey();
         }
-        void DonationGetAll() { }
+        void DonationGetAll() 
+        { 
+
+        }
         void ReadDb() // db yi okuyup ram e atar
         {
             using (FileStream fileStream = new FileStream("BloodBank.txt", FileMode.OpenOrCreate, FileAccess.ReadWrite))
@@ -191,22 +221,39 @@ namespace ConsoleApp6
             });
             SaveDonation();
         }
-        Donation Login()
+        void Login()
         {
             Donation donor;
-            View("Kullanıcı Girişi: ");
+            View("Kullanıcı Girişi: " +
+                "\n admin kullanıcı numarası: 1 şifresi: 12345");
             Console.Write("Kullanıcı Numaranı Gir: ");
-            int id = Convert.ToInt32(Console.ReadLine());
-            donor = donations.Find(d => d.Id == id);
+            Console.ReadLine();
+            int iId = Convert.ToInt32(Console.ReadLine());
+            donor = donations.Find(d => d.Id == iId);
             Console.Write("Parolanı Gir:  ");
             string inputPassword = Console.ReadLine();   
             
             if (donor==null)
             {
-                Console.ForegroundColor = ConsoleColor.Red;
-                Console.WriteLine("boş kabul etmiyoruz !! sisteme kan ver kayıt ol!");
-                DonationInsert();
-                return AppUser;
+                View("Sisteme kayıtlı değilsin! sisteme kan vererek kayıt ol! \n e/h ?");
+                char choose;
+                Console.Write("Lütfen Seçiminizi Giriniz:");
+                choose = (char)Console.Read();
+                switch (choose)
+                {
+                    case 'e':
+                    case 'E':
+                        DonationInsert();
+                        break;
+                    case 'h':
+                    case 'H':
+                        GuestMenu();
+                        break;
+                    default:
+                        GuestMenu();
+                        break;
+                }
+                AppUser = donor;
             }
             else
             {
@@ -215,19 +262,19 @@ namespace ConsoleApp6
                     if (donor.Id == 1)
                     {
                             donor.IsLogin=true;
-                        Console.ForegroundColor = ConsoleColor.Green;
-                        View(" Buyur Admin Menüye devam etmek için\n bir tuşa bas ");
+                        //Console.ForegroundColor = ConsoleColor.Green;
+                        View(" Buyur Admin! \n Menüye devam etmek için\n bir tuşa bas ");
                         Console.ReadKey();
-                        return donor;
+                        AppUser = donor;
                     }
 
                     else
                     {
                             donor.IsLogin=true;
-                        Console.ForegroundColor = ConsoleColor.DarkMagenta;
-                        View(" Buyur Kullanıcı Menüye devam etmek için\n bir tuşa bas ");
+                        //Console.ForegroundColor = ConsoleColor.DarkMagenta;
+                        View(" Buyur Kullanıcı! \n Menüye devam etmek için\n bir tuşa bas ");
                         Console.ReadKey();
-                        return donor;
+                        AppUser = donor;
                     }
                 }
                 else
@@ -235,11 +282,12 @@ namespace ConsoleApp6
                         donor.IsLogin=false;
                     Console.ForegroundColor = ConsoleColor.Yellow;
                     Console.WriteLine("yeniden girmeye çabala...");
-                    return donor;
+                    Console.WriteLine("\nAna Menü İçin Bir Tuşa Basın...");
+                    Console.ReadKey();
+                    Console.ForegroundColor = ConsoleColor.White;
                 }
             }
         }
-
         void View(string v)
         {
             Console.Clear();
@@ -251,6 +299,10 @@ namespace ConsoleApp6
             Console.WriteLine("║                                                                ║");
             string border =   "╔════════════════════════════════════════════════════════════════╗";
             Console.WriteLine("║                                                                ║");
+            Console.WriteLine("║                                                                ║");
+            Console.WriteLine("║                                                                ║");
+            Console.WriteLine("║                                                                ║");
+            Console.ForegroundColor = ConsoleColor.Yellow;
             string[] lines = v.Split('\n');
             foreach (var line in lines)
             {
@@ -266,6 +318,11 @@ namespace ConsoleApp6
                     Console.WriteLine(line2);
                 }
             }
+            Console.ForegroundColor = ConsoleColor.White;
+            Console.WriteLine("║                                                                ║");
+            Console.WriteLine("║                                                                ║");
+            Console.WriteLine("║                                                                ║");
+            Console.WriteLine("║                                                                ║");
             Console.WriteLine("║                                                                ║");
             Console.WriteLine("║                                                                ║");
             Console.WriteLine("║                                                                ║");
@@ -275,19 +332,61 @@ namespace ConsoleApp6
             Console.WriteLine("║________________________________________________________________║");
 
         }
+        public void GuestMenu() 
+        {
+            View("Misafir MENUsü\n" + "Giriş yap!\n ya da\n"+"Kayıt ol. Kan ver!");
+            char secim;
+            Console.Write("Lütfen Seçiminizi Giriniz:");
 
+            secim = (char)Console.Read();
+
+            switch (secim)
+            {
+                case '1':
+                    Login();
+                    break;
+                case '2':
+                    View("kanbağışı ekleyince kaydolmuş oluyorsun zaten.");
+                    Console.WriteLine("\nAna Menü İçin Bir Tuşa Basın...");
+                    Console.ReadKey();
+                    DonationInsert();
+                    break;
+                case '7':
+                    About();
+                    break;
+                case '8':
+                    Privacy();
+                    break;
+                case '9':
+                    Contact();
+                    break;
+                case 'e':
+                case 'E':
+                    break;
+                case 'h':
+                case 'H':
+                    break;
+                case 'x':
+                case 'X':
+                    Environment.Exit(0);
+                    break;
+                default:
+                    break;
+            }
+        }
         public void Menu()
         {
-            View("MENU\n"+
+            View("MENU\n"+ $"Merhaba :{AppUser.DonorFirstName} \n"
+                +
                             " ║                                                          ║\n" + 
-                            " ║     3.Kan Ara                                            ║\n" + 
-                            " ║     4.Kan Bağışı Ekle                                    ║\n" + 
+                            " ║     3.Kan Bağışı Getir                                   ║\n" + 
+                            " ║     4.Kan Bağışı Yap!                                    ║\n" + 
                             " ║     5.Kan Bağışı Güncelle                                ║\n" + 
                             " ║     6.Kan Bağışı Sil                                     ║\n" 
                 );
             char secim;
             Console.Write("Lütfen Seçiminizi Giriniz:");
-            
+            //Console.ReadLine();
             secim = (char)Console.Read();
 
             if (AppUser.IsAdmin)
@@ -299,7 +398,9 @@ namespace ConsoleApp6
                         Login();
                         break;
                     case '2':
-                        View("kanbağışı ekleyince kaydolmuş oluyorsun zaten.");
+                        View("kaydolmak için kan bağışı yapınız!");
+                        Console.WriteLine("\nAna Menü İçin Bir Tuşa Basın...");
+                        Console.ReadKey();
                         break;
                     case '3':
                         BloodSearch();
@@ -316,13 +417,13 @@ namespace ConsoleApp6
                         DonationDelete();
                         break;
                     case '7':
-                        About("biz iyi bi takımız");
+                        About();
                         break;
                     case '8':
-                        Privacy("kvkk");
+                        Privacy();
                         break;
                     case '9':
-                        Contact("Kayıt ekranına gidiyorsun");
+                        Contact();
                         break;
                     case 'e':
                     case 'E':
@@ -348,7 +449,7 @@ namespace ConsoleApp6
                         Login();
                         break;
                     case '2':
-                        View("kanbağışı ekleyince kaydolmuş oluyorsun zaten.");
+                        View("kaydolmak için kan bağışı yapınız!");
                         break;
                     case '3':
                         BloodSearch();
@@ -367,13 +468,13 @@ namespace ConsoleApp6
                         
                         break;
                     case '7':
-                        About("biz iyi bi takımız");
+                        About();
                         break;
                     case '8':
-                        Privacy("kvkk");
+                        Privacy();
                         break;
                     case '9':
-                        Contact("Kayıt ekranına gidiyorsun");
+                        Contact();
                         break;
                     case 'e':
                     case 'E':
@@ -397,19 +498,23 @@ namespace ConsoleApp6
                 Console.ReadKey();
             }
         }
-
-        void About(string message)
+        void About()
         {
-            View(message);
+            View("Şükrü Berkay 20091703");
+            Console.WriteLine("Ana Sayfaya gitmek için bir tuşa bas!");
+            Console.ReadKey();
         }
-        void Privacy(string message)
+        void Privacy()
         {
-
-            View(message);
+            View("KVKK");
+            Console.WriteLine("Ana Sayfaya gitmek için bir tuşa bas!");
+            Console.ReadKey();
         }
-        void Contact(string message)
+        void Contact()
         {
-            View(message);
+            View("https//github.com/biproberkay");
+            Console.WriteLine("Ana Sayfaya gitmek için bir tuşa bas!");
+            Console.ReadKey();
 
         }
     }
