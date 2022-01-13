@@ -4,14 +4,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ConsoleApp6
+namespace BloodBankb
 {
     public class Donation
     {
         public Donation() { }
 
         #region Model
-        //[Key]
         public int Id { get; set; }
         public string DonorFirstName { get; set; }
         public string DonorLastName { get; set; }
@@ -19,7 +18,6 @@ namespace ConsoleApp6
         public string BloodGroup { get; set; }
         public bool IsAdmin { get; set; } = false;
         public bool IsLogin { get; set; } = false;
-        //public string Role { get; set; } 
         #endregion
 
 

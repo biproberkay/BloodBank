@@ -1,11 +1,12 @@
-﻿using System;
+﻿using BloodBankb;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ConsoleApp6
+namespace BloodBank
 {
     public class BloodBank
     {
@@ -143,7 +144,10 @@ namespace ConsoleApp6
             Console.WriteLine("Bir tuşa basın");
             Console.ReadKey();
         }
-        void DonationGetAll() { }
+        void DonationGetAll() 
+        { 
+
+        }
         void ReadDb() // db yi okuyup ram e atar
         {
             using (FileStream fileStream = new FileStream("BloodBank.txt", FileMode.OpenOrCreate, FileAccess.ReadWrite))
@@ -220,7 +224,8 @@ namespace ConsoleApp6
         void Login()
         {
             Donation donor;
-            View("Kullanıcı Girişi: ");
+            View("Kullanıcı Girişi: " +
+                "\n admin kullanıcı numarası: 1 şifresi: 12345");
             Console.Write("Kullanıcı Numaranı Gir: ");
             Console.ReadLine();
             int iId = Convert.ToInt32(Console.ReadLine());
@@ -258,7 +263,7 @@ namespace ConsoleApp6
                     {
                             donor.IsLogin=true;
                         //Console.ForegroundColor = ConsoleColor.Green;
-                        View(" Buyur Admin Menüye devam etmek için\n bir tuşa bas ");
+                        View(" Buyur Admin! \n Menüye devam etmek için\n bir tuşa bas ");
                         Console.ReadKey();
                         AppUser = donor;
                     }
@@ -267,7 +272,7 @@ namespace ConsoleApp6
                     {
                             donor.IsLogin=true;
                         //Console.ForegroundColor = ConsoleColor.DarkMagenta;
-                        View(" Buyur Kullanıcı Menüye devam etmek için\n bir tuşa bas ");
+                        View(" Buyur Kullanıcı! \n Menüye devam etmek için\n bir tuşa bas ");
                         Console.ReadKey();
                         AppUser = donor;
                     }
@@ -374,8 +379,8 @@ namespace ConsoleApp6
             View("MENU\n"+ $"Merhaba :{AppUser.DonorFirstName} \n"
                 +
                             " ║                                                          ║\n" + 
-                            " ║     3.Kan Ara                                            ║\n" + 
-                            " ║     4.Kan Bağışı Ekle                                    ║\n" + 
+                            " ║     3.Kan Bağışı Getir                                   ║\n" + 
+                            " ║     4.Kan Bağışı Yap!                                    ║\n" + 
                             " ║     5.Kan Bağışı Güncelle                                ║\n" + 
                             " ║     6.Kan Bağışı Sil                                     ║\n" 
                 );
@@ -393,7 +398,7 @@ namespace ConsoleApp6
                         Login();
                         break;
                     case '2':
-                        View("kanbağışı ekleyince kaydolmuş oluyorsun zaten.");
+                        View("kaydolmak için kan bağışı yapınız!");
                         Console.WriteLine("\nAna Menü İçin Bir Tuşa Basın...");
                         Console.ReadKey();
                         break;
@@ -444,7 +449,7 @@ namespace ConsoleApp6
                         Login();
                         break;
                     case '2':
-                        View("kanbağışı ekleyince kaydolmuş oluyorsun zaten.");
+                        View("kaydolmak için kan bağışı yapınız!");
                         break;
                     case '3':
                         BloodSearch();

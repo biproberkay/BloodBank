@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("ConsoleApp6")]
+[assembly: AssemblyTitle("BloodBank")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("rg-adguard")]
-[assembly: AssemblyProduct("ConsoleApp6")]
+[assembly: AssemblyProduct("BloodBank")]
 [assembly: AssemblyCopyright("Copyright © rg-adguard 2021")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
